@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yr.wechat.mybatis.mapper.CarMapper">
+  <resultMap id="BaseResultMap" type="com.yr.wechat.mybatis.pojo.Car">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="car_num" jdbcType="VARCHAR" property="carNum" />
+    <result column="car_school_num" jdbcType="VARCHAR" property="carSchoolNum" />
+    <result column="car_color" jdbcType="VARCHAR" property="carColor" />
+    <result column="car_type" jdbcType="VARCHAR" property="carType" />
+    <result column="car_situation" jdbcType="VARCHAR" property="carSituation" />
+    <result column="save_seat" jdbcType="VARCHAR" property="saveSeat" />
+    <result column="car_subject" jdbcType="VARCHAR" property="carSubject" />
+    <result column="time8_max" jdbcType="INTEGER" property="time8Max" />
+    <result column="time8_left" jdbcType="INTEGER" property="time8Left" />
+    <result column="time9_max" jdbcType="INTEGER" property="time9Max" />
+    <result column="time9_left" jdbcType="INTEGER" property="time9Left" />
+    <result column="time10_max" jdbcType="INTEGER" property="time10Max" />
+    <result column="time10_left" jdbcType="INTEGER" property="time10Left" />
+    <result column="time11_max" jdbcType="INTEGER" property="time11Max" />
+    <result column="time11_left" jdbcType="INTEGER" property="time11Left" />
+    <result column="time14_max" jdbcType="INTEGER" property="time14Max" />
+    <result column="time14_left" jdbcType="INTEGER" property="time14Left" />
+    <result column="time15_max" jdbcType="INTEGER" property="time15Max" />
+    <result column="time15_left" jdbcType="INTEGER" property="time15Left" />
+    <result column="time16_max" jdbcType="INTEGER" property="time16Max" />
+    <result column="time16_left" jdbcType="INTEGER" property="time16Left" />
+    <result column="time17_max" jdbcType="INTEGER" property="time17Max" />
+    <result column="time17_left" jdbcType="INTEGER" property="time17Left" />
+  </resultMap>
+</mapper>
