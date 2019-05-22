@@ -67,76 +67,92 @@ public class ReserveController extends ExtendController<Reserve> {
     //完成预约操作
     @ApiOperation(value = "完成预约操作")
     @PutMapping(value = "/AddReserve")
-    public void AddReserve(String userNum,String CarNum,String userFrom,String time){
-        User user =new User();
-        user=userService.getUser(userNum);
-        Reserve reserve=new Reserve();
-        reserve.setCarNum(CarNum);
-        reserve.setSituation("已预约");
-        reserve.setTime(Integer.parseInt(time));
-        reserve.setUserNickname(user.getUserNickname());
-        reserve.setUserNum(userNum);
-        reserve.setUserFrom(userFrom);
-        reserveService.add(reserve);
-        switch (time){
-            case "8":carService.UpdateTime8(CarNum);break;
-            case "9":carService.UpdateTime9(CarNum);break;
-            case "10":carService.UpdateTime10(CarNum);break;
-            case "11":carService.UpdateTime11(CarNum);break;
-            case "14":carService.UpdateTime14(CarNum);break;
-            case "15":carService.UpdateTime15(CarNum);break;
-            case "16":carService.UpdateTime16(CarNum);break;
-            case "17":carService.UpdateTime17(CarNum);break;
+    public String AddReserve(String userNum,String CarNum,String userFrom,String time){
+        String YN=YN(userNum);
+        if(YN.equals("no")){
+            User user =userService.getUser(userNum);
+            Reserve reserve=new Reserve();
+            reserve.setCarNum(CarNum);
+            reserve.setSituation("已预约");
+            reserve.setTime(Integer.parseInt(time));
+            reserve.setUserNickname(user.getUserNickname());
+            reserve.setUserNum(userNum);
+            reserve.setUserFrom(userFrom);
+            reserveService.add(reserve);
+            switch (time){
+                case "8":carService.UpdateTime8(CarNum);break;
+                case "9":carService.UpdateTime9(CarNum);break;
+                case "10":carService.UpdateTime10(CarNum);break;
+                case "11":carService.UpdateTime11(CarNum);break;
+                case "14":carService.UpdateTime14(CarNum);break;
+                case "15":carService.UpdateTime15(CarNum);break;
+                case "16":carService.UpdateTime16(CarNum);break;
+                case "17":carService.UpdateTime17(CarNum);break;
+            }
+            return "ok";
+        }else {
+            return "no";
         }
     }
 
     @ApiOperation(value = "取消预约操作")
     @PutMapping(value = "/delectReserve")
-    public void delectReserve(String userNum){
-        Reserve reserve=reserveService.getReserveByUserNum(userNum);
-        reserveService.deletereserve(userNum);
-        int time=reserve.getTime();
-        String CarNum=reserve.getCarNum();
-        switch (time){
-            case 8 :carService.UpdateTime8Add(CarNum);break;
-            case 9 :carService.UpdateTime9Add(CarNum);break;
-            case 10 :carService.UpdateTime10Add(CarNum);break;
-            case 11 :carService.UpdateTime11Add(CarNum);break;
-            case 14 :carService.UpdateTime14Add(CarNum);break;
-            case 15 :carService.UpdateTime15Add(CarNum);break;
-            case 16 :carService.UpdateTime16Add(CarNum);break;
-            case 17 :carService.UpdateTime17Add(CarNum);break;
+    public String delectReserve(String userNum){
+        String YN=YN(userNum);
+        if(YN.equals("yes")){
+            Reserve reserve=reserveService.getReserveByUserNum(userNum);
+            reserveService.deletereserve(userNum);
+            int time=reserve.getTime();
+            String CarNum=reserve.getCarNum();
+            switch (time){
+                case 8 :carService.UpdateTime8Add(CarNum);break;
+                case 9 :carService.UpdateTime9Add(CarNum);break;
+                case 10 :carService.UpdateTime10Add(CarNum);break;
+                case 11 :carService.UpdateTime11Add(CarNum);break;
+                case 14 :carService.UpdateTime14Add(CarNum);break;
+                case 15 :carService.UpdateTime15Add(CarNum);break;
+                case 16 :carService.UpdateTime16Add(CarNum);break;
+                case 17 :carService.UpdateTime17Add(CarNum);break;
+            }
+            return "ok";
         }
+        return "no";
     }
 
     @ApiOperation(value = "用户改签操作")
     @PutMapping(value = "/updatetime")
     public String UpdateTime(String userNum,int time){
-        Reserve reserve=reserveService.getReserveByUserNum(userNum);
-        int oldtime=reserve.getTime();
-        String CarNum=reserve.getCarNum();
-        switch (oldtime){
-            case 8 :carService.UpdateTime8Add(CarNum);break;
-            case 9 :carService.UpdateTime9Add(CarNum);break;
-            case 10 :carService.UpdateTime10Add(CarNum);break;
-            case 11 :carService.UpdateTime11Add(CarNum);break;
-            case 14 :carService.UpdateTime14Add(CarNum);break;
-            case 15 :carService.UpdateTime15Add(CarNum);break;
-            case 16 :carService.UpdateTime16Add(CarNum);break;
-            case 17 :carService.UpdateTime17Add(CarNum);break;
+        String YN=YN(userNum);
+        if (YN.equals("yes")){
+            Reserve reserve=reserveService.getReserveByUserNum(userNum);
+            int oldtime=reserve.getTime();
+            String CarNum=reserve.getCarNum();
+            switch (oldtime){
+                case 8 :carService.UpdateTime8Add(CarNum);break;
+                case 9 :carService.UpdateTime9Add(CarNum);break;
+                case 10 :carService.UpdateTime10Add(CarNum);break;
+                case 11 :carService.UpdateTime11Add(CarNum);break;
+                case 14 :carService.UpdateTime14Add(CarNum);break;
+                case 15 :carService.UpdateTime15Add(CarNum);break;
+                case 16 :carService.UpdateTime16Add(CarNum);break;
+                case 17 :carService.UpdateTime17Add(CarNum);break;
+            }
+            reserveService.UpdateTime(userNum, time);
+            switch (time){
+                case 8 :carService.UpdateTime8(CarNum);break;
+                case 9 :carService.UpdateTime9(CarNum);break;
+                case 10 :carService.UpdateTime10(CarNum);break;
+                case 11 :carService.UpdateTime11(CarNum);break;
+                case 14 :carService.UpdateTime14(CarNum);break;
+                case 15 :carService.UpdateTime15(CarNum);break;
+                case 16 :carService.UpdateTime16(CarNum);break;
+                case 17 :carService.UpdateTime17(CarNum);break;
+            }
+            return "yes";
+        }else {
+            return "no";
         }
-        reserveService.UpdateTime(userNum, time);
-        switch (time){
-            case 8 :carService.UpdateTime8(CarNum);break;
-            case 9 :carService.UpdateTime9(CarNum);break;
-            case 10 :carService.UpdateTime10(CarNum);break;
-            case 11 :carService.UpdateTime11(CarNum);break;
-            case 14 :carService.UpdateTime14(CarNum);break;
-            case 15 :carService.UpdateTime15(CarNum);break;
-            case 16 :carService.UpdateTime16(CarNum);break;
-            case 17 :carService.UpdateTime17(CarNum);break;
-        }
-        return "yes";
+
     }
 
     @ApiOperation(value = "判断用户是否能改签")

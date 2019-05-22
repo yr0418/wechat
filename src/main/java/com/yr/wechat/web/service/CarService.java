@@ -100,4 +100,10 @@ public class CarService extends ExtendService<Car> {
     public void SetCarSeat(String MaxSeat,String carSubject,String saveSeat,String CarNum){
         carmapper.SetCarSeat(MaxSeat,carSubject,saveSeat,CarNum);
     }
+
+    public void addCar(String CarNum,String CarSchoolNum,String CarColor,String CarType){
+        carmapper.addCar(CarNum,CarSchoolNum,CarColor,CarType);
+    }
+
+
 }

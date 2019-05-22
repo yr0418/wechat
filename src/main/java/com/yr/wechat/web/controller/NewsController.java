@@ -30,22 +30,24 @@ public class NewsController extends ExtendController<News> {
     //添加最新通知消息并发布
     @ApiOperation(value = "添加最新通知消息并发布")
     @PutMapping(value = "/addnews")
-    public void AddNews(String schoolNum,String news){
+    public String AddNews(String schoolNum,String news){
         newsService.UpdateNewsToHide(schoolNum);
         News news1=new News();
         news1.setNews(news);
         news1.setSchoolNum(schoolNum);
         news1.setNewsSituation("发布");
         newsService.add(news1);
+        return "ok";
     }
 
     //发布指定的通知信息
     @ApiOperation(value = "发布指定的通知信息")
     @PutMapping(value = "/showNews")
-    public void showNews(String id){
+    public String showNews(String id){
        News news=newsService.getNewsById(id);
         newsService.UpdateNewsToHide(news.getSchoolNum());
         newsService.ShowNewsById(id);
+        return "ok";
     }
 
     @ApiOperation(value = "查询驾校发布过的所有通知信息")

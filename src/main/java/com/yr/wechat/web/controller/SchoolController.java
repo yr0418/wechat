@@ -11,6 +11,7 @@ import com.yr.wechat.web.service.SchoolService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,5 +61,17 @@ public class SchoolController extends ExtendController<School> {
             list.add(userReserve);
         }
         return list;
+    }
+
+    @ApiOperation(value = "注册驾校")
+    @PostMapping(value = "/addSchool")
+    public String AddSchool(String SchoolNum,String SchoolName,String SchoolLocation){
+        String school=schoolService.getSchoolNum(SchoolNum);
+        if (school==null){
+            schoolService.AddSchool(SchoolNum,SchoolName,SchoolLocation);
+            return "ok";
+        }else {
+            return "no";
+        }
     }
 }

@@ -6,6 +6,7 @@ import com.yr.wechat.web.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -178,5 +179,18 @@ public class UserController extends ExtendController<User> {
     @GetMapping("/selectSchool")
     public List<School> SelectSchool(String userNum){
         return userService.SelectSchool(userNum);
+    }
+
+    @ApiOperation(value = "注册用户")
+    @PostMapping(value = "AddUser")
+    public String AddUser(String UserNum,String UserNickname,String UserSchoolNum){
+        String user=userService.getUserNum(UserNum);
+        if (user==null){
+            userService.AddUser(UserNum,UserNickname,UserSchoolNum);
+            return "ok";
+        }
+        else {
+            return "no";
+        }
     }
 }

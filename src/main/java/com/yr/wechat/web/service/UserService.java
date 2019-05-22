@@ -36,4 +36,8 @@ public class UserService extends ExtendService<User> {
     public List<School> SelectSchool(String userNum){
         return userMapper.SelectSchool(userNum);
     }
+
+    public void AddUser(String UserNum,String UserNickname,String UserSchoolNum){
+        userMapper.AddUser(UserNum,UserNickname,UserSchoolNum);
+    }
 }

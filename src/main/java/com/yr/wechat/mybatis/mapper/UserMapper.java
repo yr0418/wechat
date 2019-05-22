@@ -5,6 +5,7 @@ import com.yr.wechat.mybatis.pojo.Car;
 import com.yr.wechat.mybatis.pojo.News;
 import com.yr.wechat.mybatis.pojo.School;
 import com.yr.wechat.mybatis.pojo.User;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -34,5 +35,9 @@ public interface UserMapper extends CustomMapper<User> {
     //查询用户基本信息
     @Select("select * from user where user_num=#{userNum}")
     public User getUser(String userNum);
+
+    //注册学员
+    @Insert("insert into user(user_num,user_nickname,user_school_num) values(#{UserNum},#{UserNickname},#{UserSchoolNum})")
+    public void AddUser(String UserNum,String UserNickname,String UserSchoolNum);
 
 }

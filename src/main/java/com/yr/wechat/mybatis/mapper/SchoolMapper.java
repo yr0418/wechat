@@ -3,6 +3,7 @@ package com.yr.wechat.mybatis.mapper;
 import com.yr.wechat.mybatis.CustomMapper;
 import com.yr.wechat.mybatis.pojo.Car;
 import com.yr.wechat.mybatis.pojo.School;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -21,4 +22,8 @@ public interface SchoolMapper extends CustomMapper<School> {
     //根据驾校的openid查询驾校信息
     @Select("select * from school where school_num=#{SchoolNum}")
     public List<School> selectSchool(String SchoolNum);
+
+    //驾校注册
+    @Insert("insert into school(school_num,school_name,school_location) values(#{SchoolNum},#{SchoolName},#{SchoolLocation})")
+    public void AddSchool(String SchoolNum,String SchoolName,String SchoolLocation);
 }

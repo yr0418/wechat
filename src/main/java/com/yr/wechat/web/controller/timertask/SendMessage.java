@@ -29,22 +29,16 @@ public class SendMessage {
     RestTemplate restTemplate;
 
     private static String accessToken="0";
-    //@Scheduled(cron ="0 45 7,9,13,15,17 * * *" )
-    public void getAccess_token() {
-        //获取access_token
-        String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx2be7497fc8ee40a0&secret=5896a0e314a0fb15bb6e8a267e72955b";
-
-        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
+    @Scheduled(cron ="0 50 7,8,9,10,13,14,15,16 * * *")
+    public void run_1(){
+        //设置URL
+        String url1 = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx2be7497fc8ee40a0&secret=5896a0e314a0fb15bb6e8a267e72955b";
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url1, HttpMethod.GET, null, String.class);
         if(responseEntity != null && responseEntity.getStatusCode() == HttpStatus.OK){
             String sessionData = responseEntity.getBody();
             JSONObject jsonObj = JSON.parseObject(sessionData);
             accessToken = jsonObj.getString("access_token");
         }
-    }
-
-    //@Scheduled(cron ="0 50 7,8,9,10,13,14,15,16 * * *")
-    public void run_1(){
-        //设置URL
         String url="https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=" +accessToken;
         //获取要发送信息的用户的信息
         Calendar calendar=Calendar.getInstance();
@@ -85,14 +79,21 @@ public class SendMessage {
 
             message.setData(m);
 
-            ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, message, String.class);
-            System.out.println("小程序推送结果={}"+responseEntity.getBody());
-
+            ResponseEntity<String> responseEntity2 = restTemplate.postForEntity(url, message, String.class);
+            System.out.println("小程序推送结果={}"+responseEntity2.getBody());
         }
     }
 
-    //@Scheduled(cron = "0 50 8,9,10,11,14,15,14,17 * * *")
+    @Scheduled(cron = "0 50 8,9,10,11,14,15,14,17 * * *")
     public void run_2(){
+        //设置URL
+        String url1 = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx2be7497fc8ee40a0&secret=5896a0e314a0fb15bb6e8a267e72955b";
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url1, HttpMethod.GET, null, String.class);
+        if(responseEntity != null && responseEntity.getStatusCode() == HttpStatus.OK){
+            String sessionData = responseEntity.getBody();
+            JSONObject jsonObj = JSON.parseObject(sessionData);
+            accessToken = jsonObj.getString("access_token");
+        }
         //设置URL
         String url="https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=" +accessToken;
         //获取要发送信息的用户的信息
@@ -126,13 +127,11 @@ public class SendMessage {
                 m.put("keyword4",keyword3);
                 message.setData(m);
 
-                ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, message, String.class);
-                System.out.println("小程序推送结果={}"+responseEntity.getBody());
+                ResponseEntity<String> responseEntity1 = restTemplate.postForEntity(url, message, String.class);
+                System.out.println("小程序推送结果={}"+responseEntity1.getBody());
 
                 reserveService.UpdateSituationToFinsh(reserveList.get(i).getUserNum());
             }
-
-
         }
     }
 }
