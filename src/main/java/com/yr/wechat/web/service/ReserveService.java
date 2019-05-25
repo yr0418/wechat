@@ -43,4 +43,8 @@ public class ReserveService extends ExtendService<Reserve> {
     public List<Reserve> carReserveInfo(String carNum){
         return reserveMapper.carReserveInfo(carNum);
     }
+
+    public int UserYNForReserve(String userNum){
+        return reserveMapper.UserYNForReserve(userNum);
+    }
 }

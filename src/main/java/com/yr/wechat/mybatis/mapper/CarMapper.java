@@ -76,4 +76,9 @@ public interface CarMapper extends CustomMapper<Car> {
     @Insert("insert into car(car_num,car_school_num,car_color,car_type,car_situation) values(#{CarNum},#{CarSchoolNum},#{CarColor},#{CarType},'未开放')")
     public void addCar(String CarNum,String CarSchoolNum,String CarColor,String CarType);
 
+    //确定该车辆存在
+    @Select("select count(*) from car where car_num=#{carNum}")
+    public int CarYN(String carNum);
+
+
 }

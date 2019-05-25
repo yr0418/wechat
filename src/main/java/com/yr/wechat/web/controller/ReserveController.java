@@ -40,8 +40,8 @@ public class ReserveController extends ExtendController<Reserve> {
     @ApiOperation(value = "判断用户是否预约")
     @GetMapping(value = "YN")
     public String YN(String UserNum){
-        String YN=reserveService.getUserNum(UserNum);
-        if (YN == null) {
+        int YN=reserveService.UserYNForReserve(UserNum);
+        if (YN == 0) {
             return "no";
         }else {
             return "yes";
@@ -51,7 +51,11 @@ public class ReserveController extends ExtendController<Reserve> {
     @ApiOperation(value = "根据openid获取用户预约信息")
     @GetMapping(value = "/getReserve")
     public UserReserve getReserve(String userNum){
+        int YN=reserveService.UserYNForReserve(userNum);
+        if(YN!=0){
         Reserve reserve=reserveService.getReserveByUserNum(userNum);
+        int c=carService.CarYN(reserve.getCarNum());
+        if(c!=0){
         Car car=carService.getCarInfo(reserve.getCarNum());
         UserReserve userReserve =new UserReserve();
         userReserve.setCarColor(car.getCarColor());
@@ -62,6 +66,12 @@ public class ReserveController extends ExtendController<Reserve> {
         userReserve.setUserNickname(reserve.getUserNickname());
         userReserve.setUserSituation(reserve.getSituation());
         return userReserve;
+        }else {
+            return null;
+        }
+        }else {
+            return null;
+        }
     }
 
     //完成预约操作
@@ -70,6 +80,9 @@ public class ReserveController extends ExtendController<Reserve> {
     public String AddReserve(String userNum,String CarNum,String userFrom,String time){
         String YN=YN(userNum);
         if(YN.equals("no")){
+            int count=userService.UserYN(userNum);
+            int c=carService.CarYN(CarNum);
+            if (count!=0 && c!=0){
             User user =userService.getUser(userNum);
             Reserve reserve=new Reserve();
             reserve.setCarNum(CarNum);
@@ -90,6 +103,9 @@ public class ReserveController extends ExtendController<Reserve> {
                 case "17":carService.UpdateTime17(CarNum);break;
             }
             return "ok";
+            }else {
+                return "no";
+            }
         }else {
             return "no";
         }

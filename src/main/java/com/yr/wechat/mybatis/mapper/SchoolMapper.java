@@ -26,4 +26,8 @@ public interface SchoolMapper extends CustomMapper<School> {
     //驾校注册
     @Insert("insert into school(school_num,school_name,school_location) values(#{SchoolNum},#{SchoolName},#{SchoolLocation})")
     public void AddSchool(String SchoolNum,String SchoolName,String SchoolLocation);
+
+    //确定驾校是否存在
+    @Select("select count(*) from school where school_num=#{schoolNum}")
+    public int schoolYN(String schoolNum);
 }

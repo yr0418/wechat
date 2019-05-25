@@ -40,4 +40,9 @@ public class UserService extends ExtendService<User> {
     public void AddUser(String UserNum,String UserNickname,String UserSchoolNum){
         userMapper.AddUser(UserNum,UserNickname,UserSchoolNum);
     }
+    public int UserYN(String userNum){
+        return userMapper.UserYN(userNum);
+    }
+
+
 }

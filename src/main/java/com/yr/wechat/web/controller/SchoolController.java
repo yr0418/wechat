@@ -46,6 +46,8 @@ public class SchoolController extends ExtendController<School> {
     @ApiOperation(value = "根据车牌号查询该车的预订信息")
     @GetMapping(value = "/carReserveInfo")
     public List<UserReserve> carReserveInfo(String carNum){
+        int YN=carService.CarYN(carNum);
+        if(YN!=0){
         List<Reserve> reserveList=reserveService.carReserveInfo(carNum);
         Car carInfo=carService.getCarInfo(carNum);
         List<UserReserve> list=new ArrayList<>();
@@ -61,13 +63,16 @@ public class SchoolController extends ExtendController<School> {
             list.add(userReserve);
         }
         return list;
+    }else {
+            return null;
+        }
     }
 
     @ApiOperation(value = "注册驾校")
     @PostMapping(value = "/addSchool")
     public String AddSchool(String SchoolNum,String SchoolName,String SchoolLocation){
-        String school=schoolService.getSchoolNum(SchoolNum);
-        if (school==null){
+        int YN=schoolService.schoolYN(SchoolNum);
+        if (YN==0){
             schoolService.AddSchool(SchoolNum,SchoolName,SchoolLocation);
             return "ok";
         }else {

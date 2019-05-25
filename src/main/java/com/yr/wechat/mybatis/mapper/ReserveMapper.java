@@ -39,4 +39,7 @@ public interface ReserveMapper extends CustomMapper<Reserve> {
     @Select("select * from reserve where car_num=#{carNum}")
     public List<Reserve> carReserveInfo(String carNum);
 
+    @Select("select count(*) from reserve where user_num=#{userNum}")
+    public int UserYNForReserve(String userNum);
+
 }

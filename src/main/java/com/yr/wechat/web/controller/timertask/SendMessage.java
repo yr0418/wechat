@@ -29,7 +29,7 @@ public class SendMessage {
     RestTemplate restTemplate;
 
     private static String accessToken="0";
-    @Scheduled(cron ="0 50 7,8,9,10,13,14,15,16 * * *")
+    @Scheduled(cron ="0 12 7,8,9,10,13,14,15,16,21 * * *")
     public void run_1(){
         //设置URL
         String url1 = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx2be7497fc8ee40a0&secret=5896a0e314a0fb15bb6e8a267e72955b";
@@ -84,7 +84,7 @@ public class SendMessage {
         }
     }
 
-    @Scheduled(cron = "0 50 8,9,10,11,14,15,14,17 * * *")
+    @Scheduled(cron = "0 12 8,9,10,11,14,15,14,17,21 * * *")
     public void run_2(){
         //设置URL
         String url1 = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx2be7497fc8ee40a0&secret=5896a0e314a0fb15bb6e8a267e72955b";

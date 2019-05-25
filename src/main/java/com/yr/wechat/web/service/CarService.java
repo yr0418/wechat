@@ -105,5 +105,7 @@ public class CarService extends ExtendService<Car> {
         carmapper.addCar(CarNum,CarSchoolNum,CarColor,CarType);
     }
 
-
+    public int CarYN(String carNum){
+        return carmapper.CarYN(carNum);
+    }
 }

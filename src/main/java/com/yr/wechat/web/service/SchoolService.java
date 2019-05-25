@@ -29,5 +29,9 @@ public class SchoolService extends ExtendService<School> {
     public void AddSchool(String SchoolNum,String SchoolName,String SchoolLocation){
         schoolMapper.AddSchool(SchoolNum,SchoolName,SchoolLocation);
     }
+
+    public int schoolYN(String schoolNum){
+        return schoolMapper.schoolYN(schoolNum);
+    }
 }
 

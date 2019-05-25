@@ -40,4 +40,7 @@ public interface UserMapper extends CustomMapper<User> {
     @Insert("insert into user(user_num,user_nickname,user_school_num) values(#{UserNum},#{UserNickname},#{UserSchoolNum})")
     public void AddUser(String UserNum,String UserNickname,String UserSchoolNum);
 
+    @Select("select count(*) from user where user_num=#{userNum}")
+    public int UserYN(String userNum);
+
 }
